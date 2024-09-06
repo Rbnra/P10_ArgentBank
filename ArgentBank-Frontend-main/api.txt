@@ -1,0 +1,21 @@
+
+Pour Tony
+
+{
+  "status": 200,
+  "message": "User successfully logged in",
+  "body": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OTAwY2VlNjZiZDM3MGE5NDYwZTRiYSIsImlhdCI6MTcyNTYyODI5MCwiZXhwIjoxNzI1NzE0NjkwfQ.U_SZNplT_H5w8bygYgchnDinJGVy4LsrynFqfzi4pdw"
+  }
+}
+
+
+Pour Steve rogers
+
+{
+  "status": 200,
+  "message": "User successfully logged in",
+  "body": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OTAwY2VlNjZiZDM3MGE5NDYwZTRiYiIsImlhdCI6MTcyNTYyODM4NywiZXhwIjoxNzI1NzE0Nzg3fQ.JHYpw7loaKLVb5DOkTHfkvbcf1fgG2RxyApSNVLomWE"
+  }
+}
