@@ -102,7 +102,7 @@ paths:
         '500':
           description: Internal Server Error
   /user/account:
-    post: 
+    get: 
       tags:
         - Accounts and Transactions Module
       summary: All accounts
@@ -126,6 +126,7 @@ paths:
         - Accounts and Transactions Module
       summary: Account transactions
       description: API for retrieving list of transactions assiocated with an account
+      responses:
       security: 
         - Bearer: []
       parameters:
@@ -141,6 +142,8 @@ paths:
             type: array
             items:
               $ref: '#/definitions/TransactionsResponse'
+        '400':
+          description: Invalid Fields      
         '401':
           description: Unauthorized user
         '404': 
@@ -153,6 +156,7 @@ paths:
         - Accounts and Transactions Module
       summary: Update transaction's category
       description: API for updating category of transaction
+      responses:
       security: 
         - Bearer: []
       parameters:
@@ -172,6 +176,8 @@ paths:
           description: Transaction's category modified successfully
           schema: 
             $ref: '#/definitions/TransactionCategory'
+        '400':
+          description: Invalid Fields    
         '401': 
           description: Unauthorized user
         '404': 
@@ -184,6 +190,7 @@ paths:
         - Accounts and Transactions Module
       summary: Add transaction's note
       description: API for adding a note to a transaction
+      responses:
       security: 
         - Bearer: []
       parameters:
@@ -203,6 +210,8 @@ paths:
           description: Note added to the transaction successfully
           schema: 
             $ref: '#/definitions/TransactionResponseNote'
+        '400':
+          description: Invalid Fields    
         '401':
           description: Unauthorized user
         '404':
@@ -215,6 +224,7 @@ paths:
         - Accounts and Transactions Module
       summary: Modify transaction's note
       description: API for modifying a note of a transaction
+      responses:
       security: 
         - Bearer: []
       parameters:
@@ -239,12 +249,15 @@ paths:
           description: Note modified successfully
           schema:
             $ref: '#/definitions/TransactionResponseNote'
+        '400':
+          description: Invalid Fields
         '401':
           description: Unauthorized user
         '404':
           description: Note not modified
         '500':
           description: Internal Server Error
+    /transactions/{transactionID}/note/{noteID}
     delete:
       tags:
         - Accounts and Transactions Module
@@ -266,6 +279,8 @@ paths:
       responses:
         '200':
           description: Note deleted successfully
+          '400':
+          description: Invalid Fields
         '401':
           description: Unauthorized user
         '404':
