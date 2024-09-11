@@ -1,41 +1,59 @@
-import React, { useEffect } from 'react';
-import { useSelector} from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { RootState } from '../../app/store';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavBar } from '../../components/NavBar/NavBar';
 import { Footer } from '../../components/Footer/Footer';
 import { Account } from '../../components/Account/Account';
+import { EditUserInfo } from '../../components/EditUserInfo/EditUserInfo';
+import { AppDispatch, RootState } from '../../app/store';
+import { fetchUserProfile, startProfileEdit } from '../../app/feature/authSlice';
 
 export const Profil: React.FC = () => {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/sign-in');
+    const dispatch: AppDispatch = useDispatch();
+
+    // On recupère le profil utilisateur chargé , l'état de l'édition du profil
+    const {isEditingProfile, userProfile  } = useSelector((state: RootState) => state.auth);
+    const [userName, setUsername] = useState('');
+    const [firstName, setFirstName] = useState('');
+
+    const handleEditClick = () => {
+        dispatch(startProfileEdit());
+    };
+
+    // Effet pour récupérer le profil utilisateur au montage du composant
+    useEffect(() => {
+        // Dispatch fetchUserProfile pour charger le profil au démarrage
+        dispatch(fetchUserProfile());
+    }, [dispatch]);
+
+// Effet pour mettre à jour les champs locaux lorsque le userProfile est mis à jour
+useEffect(() => {
+    if (userProfile) {
+      setUsername(userProfile.userName || '');
+      setFirstName(userProfile.firstName || '');
     }
-  }, [isAuthenticated, navigate]);
-  return (
-    <>
-      <NavBar />
-      <main className="main bg-dark">
-        <div className="header">
-          <h1>Welcome back<br />Tony Jarvis!</h1>
-          <button className="edit-button">Edit Name</button>
-        </div>
-        <Account title="Argent Bank Checking (x8349)" amount="$2,082.79" description="Available Balance" />
-        <Account title="Argent Bank Savings (x6712)" amount="$10,928.42" description="Available Balance" />
-        <Account title="Argent Bank Credit Card (x8349)" amount="$184.30" description="Current Balance" />
-      </main>
-      <Footer />
-    </>
-  );
+  }, [userProfile]);
+
+    return (
+        <>
+            <NavBar />
+            <main className="main bg-dark">
+                {isEditingProfile ? (
+                    // Affiche le formulaire d'édition lorsque l'utilisateur clique sur "Edit Name"
+                    <EditUserInfo />
+                ) : (
+                    // Afficher les informations par défaut lorsqu'on n'est pas en mode édition
+                    <div className="header">
+                        <h1>Welcome back<br /> {`${firstName} ${userName} !`}</h1>
+                        <button className="edit-button" onClick={handleEditClick}>
+                            Edit Name
+                        </button>
+                    </div>
+                )}
+                <Account title="Argent Bank Checking (x8349)" amount="$2,082.79" description="Available Balance" />
+                <Account title="Argent Bank Savings (x6712)" amount="$10,928.42" description="Available Balance" />
+                <Account title="Argent Bank Credit Card (x8349)" amount="$184.30" description="Current Balance" />
+            </main>
+            <Footer />
+        </>
+    );
 };
-
-
-
-
-
-
-
-
-
