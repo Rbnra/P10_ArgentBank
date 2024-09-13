@@ -65,11 +65,9 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      #produces:
-       # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -81,7 +79,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
+      summary: Update User Profile
       description: API for updating a user profile
       parameters:
         - in: body
@@ -94,7 +92,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile updated successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -106,7 +104,7 @@ paths:
       tags:
         - Accounts and Transactions Module
       summary: All accounts
-      description: API for retrieving all user account
+      description: API for retrieving all user accounts
       security:
         - Bearer: []
       responses: 
@@ -125,8 +123,7 @@ paths:
       tags:
         - Accounts and Transactions Module
       summary: Account transactions
-      description: API for retrieving list of transactions assiocated with an account
-      responses:
+      description: API for retrieving a list of transactions associated with an account
       security: 
         - Bearer: []
       parameters:
@@ -155,8 +152,7 @@ paths:
       tags:
         - Accounts and Transactions Module
       summary: Update transaction's category
-      description: API for updating category of transaction
-      responses:
+      description: API for updating the category of a transaction
       security: 
         - Bearer: []
       parameters:
@@ -167,7 +163,7 @@ paths:
           type: string
         - in: body
           name: category
-          description: Modified transaction's category
+          description: Modified transaction category
           required: true
           schema:
             $ref: '#/definitions/TransactionCategory'
@@ -183,14 +179,13 @@ paths:
         '404': 
           description: Transaction not found
         '500': 
-          description: Internal Servor Error
+          description: Internal Server Error
   /transactions/{transactionID}/note:
     post:
       tags:
         - Accounts and Transactions Module
       summary: Add transaction's note
       description: API for adding a note to a transaction
-      responses:
       security: 
         - Bearer: []
       parameters:
@@ -224,7 +219,6 @@ paths:
         - Accounts and Transactions Module
       summary: Modify transaction's note
       description: API for modifying a note of a transaction
-      responses:
       security: 
         - Bearer: []
       parameters:
@@ -257,7 +251,6 @@ paths:
           description: Note not modified
         '500':
           description: Internal Server Error
-    /transactions/{transactionID}/note/{noteID}
     delete:
       tags:
         - Accounts and Transactions Module
@@ -279,7 +272,7 @@ paths:
       responses:
         '200':
           description: Note deleted successfully
-          '400':
+        '400':
           description: Invalid Fields
         '401':
           description: Unauthorized user
@@ -343,21 +336,21 @@ definitions:
       userName:
         type: string
   AccountResponse:
-      type: object
-      properties:
-        accountID:
-          type: string
-          description: account ID
-        accountName:
-          type: string
-          description: account name
-        accountCurrency:
-          type: string
-          description: account currency
-        currentBalance:
-          type: number
-          description: current account balance
-          format: double
+    type: object
+    properties:
+      accountID:
+        type: string
+        description: account ID
+      accountName:
+        type: string
+        description: account name
+      accountCurrency:
+        type: string
+        description: account currency
+      currentBalance:
+        type: number
+        description: current account balance
+        format: double
   TransactionsResponse:
     type: object
     properties:
@@ -369,39 +362,28 @@ definitions:
         description: type of transaction
       date:
         type: string
-        format: date-time
-        description: date of transaction
-      description:
-        type: string
-        description: description of transaction
+        description: date of the transaction
       amount:
         type: number
-        description: transaction amout
-      balance:
-        type: number
-        description: available balance
         format: double
-      category:
-        type: string
-        description: name of the category
-      note: 
-        type: string
-        description: user note
   TransactionCategory:
     type: object
     properties:
-      category:
+      categoryID:
         type: string
+        description: ID of the category
   TransactionNote:
     type: object
     properties:
-      note:
+      noteText:
         type: string
+        description: text of the note
   TransactionResponseNote:
     type: object
     properties:
-      note:
-        type: string
       noteID:
-        type: string      
-  
+        type: string
+        description: ID of the note
+      noteText:
+        type: string
+        description: text of the note
