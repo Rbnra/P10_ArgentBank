@@ -12,7 +12,7 @@ export const Profil: React.FC = () => {
 
     // On recupère le profil utilisateur chargé , l'état de l'édition du profil
     const {isEditingProfile, userProfile  } = useSelector((state: RootState) => state.auth);
-    const [userName, setUsername] = useState('');
+    const [userName, setUserName] = useState('');
     const [firstName, setFirstName] = useState('');
 
     const handleEditClick = () => {
@@ -28,7 +28,7 @@ export const Profil: React.FC = () => {
 // Effet pour mettre à jour les champs locaux lorsque le userProfile est mis à jour
 useEffect(() => {
     if (userProfile) {
-      setUsername(userProfile.userName || '');
+      setUserName(userProfile.userName || '');
       setFirstName(userProfile.firstName || '');
     }
   }, [userProfile]);
