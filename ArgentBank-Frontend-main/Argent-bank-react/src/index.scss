@@ -20,6 +20,7 @@ body {
   justify-content: center;
   min-height: 68vh;
   background-color: #12002b;
+  padding-bottom: 90px;
 }
 
 .sr-only {
@@ -59,6 +60,10 @@ body {
 
 .main-nav-item:hover {
   text-decoration: underline;
+}
+
+.main-nav i{
+  margin-right: 5px;
 }
 
 .main-nav-logo {
@@ -177,7 +182,7 @@ body {
 }
 
 .sign-in-icon {
-  font-size: 5rem;
+  font-size: 1rem;
   margin-bottom: 1rem;
 }
 
