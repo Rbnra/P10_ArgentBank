@@ -16,8 +16,6 @@ export const SignIn: React.FC = () => {
     const navigate = useNavigate();
     // On récupère l'état de chargement, l'erreur et l'authentification
     const { loading, error , isAuthenticated} = useSelector((state: RootState) => state.auth);
-   
-
     
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
